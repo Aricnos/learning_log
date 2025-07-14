@@ -138,31 +138,30 @@ BOOTSTRAP3 = {
     'include_jquery':True
 }
 
-# Heroku settings
-if os.getcwd() ==  '/app':
-    import dj_database_url
-    DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+# Render settings
+import os
+import dj_database_url
 
+# Detect if running on Render
+if os.getenv('RENDER'):
+    # Database
+    DATABASES = {
+        'default': dj_database_url.config(
+            default='sqlite:///db.sqlite3',
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
 
     # Honor the "X-Forwarded-Proto" header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    # Allow all host headers
+    # Allowed hosts
     ALLOWED_HOSTS = ['learning-log-xgq9.onrender.com']
 
-    # Static asset configuration
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    # Static files
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-    MIDDLEWARE = [
-        'django.middleware.security.SecurityMiddleware',
-        'whitenoise.middleware.WhiteNoiseMiddleware',
-        # ...
-    ]
+    # Add WhiteNoise middleware if not already there
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
