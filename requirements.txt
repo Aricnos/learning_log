@@ -20,6 +20,7 @@ defusedxml==0.7.1
 dj-database-url==3.0.1
 dj-static==0.0.6
 Django==5.2.3
+django-bootstrap3==25.1
 executing==2.2.0
 filelock==3.18.0
 fonttools==4.56.0
@@ -105,6 +106,7 @@ wcwidth==0.2.13
 webdriver-manager==4.0.2
 webencodings==0.5.1
 websocket-client==1.8.0
+whitenoise==6.9.0
 wsproto==1.2.0
 xgboost==3.0.0
 zipp==3.23.0
