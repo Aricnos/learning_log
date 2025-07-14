@@ -16,16 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.http import HttpResponse
-from django.core.management import call_command
 
-def run_migrations(request):
-    call_command('migrate')
-    return HttpResponse('Migration complete.')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('learning_logs.urls'), namespace='learning_logs')),
     # added the new app called 'users'
     path('users/', include(('users.urls'), namespace='users')),
-    path('run_migrations/', run_migrations),
 ]
